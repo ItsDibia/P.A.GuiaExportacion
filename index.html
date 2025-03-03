@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Comercio Exterior</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #0ea5e9;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --text-color: #334155;
+            --light-gray: #e2e8f0;
+            --border-color: #cbd5e1;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(37, 99, 235, 0.95);
+            backdrop-filter: blur(5px);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+        }
+        
+        .main-nav {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            display: block;
+        }
+        
+        .main-nav a:hover {
+            color: var(--warning-color);
+        }
+        
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--warning-color);
+            transition: var(--transition);
+        }
+        
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .content-section {
+            background-color: white;
+            padding: 4rem 2rem; /* Updated padding */
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .content-section:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-heading {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-top: 2rem; /* Updated margin */
+            margin-bottom: 1.2rem; /* Updated margin */
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 2rem; /* Updated margin */
+            margin-bottom: 1.2rem; /* Updated margin */
+        }
+        
+        h4 {
+            color: var(--dark-color);
+            margin-top: 2rem; /* Updated margin */
+            margin-bottom: 1.2rem; /* Updated margin */
+        }
+        
+        p {
+            margin-bottom: 1.5rem; /* Updated margin */
+            line-height: 1.8; /* Updated line-height */
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.8rem; /* Updated margin */
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 2rem; /* Updated padding */
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            border-top: 3px solid transparent;
+        }
+        
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            border-top-color: var(--primary-color);
+        }
+        
+        .card-title {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-title i {
+            color: var(--primary-color);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        tr:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .callout {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+            transition: var(--transition);
+        }
+        
+        .callout:hover {
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .callout-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .callout-info {
+            border-left-color: var(--secondary-color);
+            background-color: rgba(14, 165, 233, 0.05);
+        }
+        
+        .callout-info .callout-title {
+            color: var(--secondary-color);
+        }
+        
+        .callout-warning {
+            border-left-color: var(--warning-color);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+        
+        .callout-warning .callout-title {
+            color: var(--warning-color);
+        }
+        
+        .callout-success {
+            border-left-color: var(--success-color);
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+        
+        .callout-success .callout-title {
+            color: var(--success-color);
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem; /* Updated gap */
+        }
+        
+        .interactive-tool {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 3rem; /* Updated padding */
+            margin-bottom: 3rem; /* Updated margin */
+            transition: var(--transition);
+        }
+        
+        .interactive-tool:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-tool h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        #resultado-calculadora {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+            display: none;
+        }
+        
+        #resultado-calculadora.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .checklist-item:hover {
+            background-color: var(--light-color);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+        
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            margin: 0;
+        }
+        
+        .checklist-item.completed label {
+            text-decoration: line-through;
+            color: var(--success-color);
+        }
+        
+        .glosario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .term-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 2rem; /* Updated padding */
+            transition: var(--transition);
+            border-top: 3px solid var(--primary-color);
+            height: 100%;
+        }
+        
+        .term-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .term-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .term-card a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .term-card a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: var(--warning-color);
+            width: 0%;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Tabs */
+        .tabs {
+            margin-bottom: 2rem;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: transparent;
+            border: none;
+            border-radius: 4px 4px 0 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-color);
+        }
+        
+        .tab-btn:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Accordion */
+        .accordion {
+            margin-bottom: 1.5rem;
+        }
+        
+        .accordion-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--light-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .accordion-header:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .accordion-header.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+        
+        .accordion-content.active {
+            max-height: 1000px;
+            padding: 2rem; /* Updated padding */
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary-color);
+            cursor: help;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark-color) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .main-nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            .main-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .main-nav li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .main-nav a {
+                padding: 0.75rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .content-section {
+                padding: 3rem 1.5rem; /* Updated padding for mobile */
+            }
+            
+            .card, .interactive-tool, .term-card {
+                padding: 1.5rem; /* Updated padding for mobile */
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-heading {
+                font-size: 1.8rem;
+            }
+            
+            .card, .interactive-tool {
+                padding: 1.25rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        body.menu-open {
+            overflow: hidden;
+        }
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        .search-container {
+            margin-bottom: 1rem;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .cost-chart {
+            margin-top: 1rem;
+            height: 300px;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .content-section,
+        body.dark-mode .card,
+        body.dark-mode .interactive-tool,
+        body.dark-mode .term-card {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .section-heading,
+        body.dark-mode .card-title,
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: #3b82f6;
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            color: #fbbf24;
+        }
+
+        /* Search styles */
+        .search-container {
+            margin-bottom: 1rem;
+        }
+
+        #glosarioSearch {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        /* Cost chart styles */
+        .cost-chart {
+            width: 100%;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        /* Quiz styles */
+        #quizContainer {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-question {
+        #quizContainer {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+
+        #submitQuiz {
+            margin-top: 1rem;
+        }
+
+        #quizResults {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary-color);
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Animation styles */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                    Comercio Exterior
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="main-nav" id="mainNav">
+                    <li><a href="#intro" class="nav-link active">Inicio</a></li>
+                    <li><a href="#aspectos-comunes" class="nav-link">Aspectos Comunes</a></li>
+                    <li><a href="#exportacion" class="nav-link">Exportación</a></li>
+                    <li><a href="#importacion" class="nav-link">Importación</a></li>
+                    <li><a href="#recursos" class="nav-link">Herramientas</a></li>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Guía Completa de Comercio Exterior</h1>
+                <p>Información detallada y práctica para empresarios que buscan expandir sus horizontes comerciales a nivel internacional.</p>
+                <div class="hero-buttons">
+                    <a href="#aspectos-comunes" class="btn btn-primary">Comenzar Ahora</a>
+                    <a href="#recursos" class="btn btn-outline">Herramientas Prácticas</a>
+                    <a href="Guia_Exportacion.html" class="btn btn-primary">
+                        Sección adicional
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="intro" class="content-section">
+            <h2 class="section-heading">Introducción al Comercio Exterior</h2>
+            <p>El comercio exterior representa el conjunto de operaciones de intercambio de bienes y servicios entre residentes de un país con los de otro país. Para empresas de todos los tamaños, el comercio internacional abre puertas a nuevas oportunidades, mercados más amplios y diversificación del riesgo comercial.</p>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>¿Por qué es importante el comercio exterior?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">                    </div>
+                    <div class="accordion-content">
+                        <p>Para empresarios y emprendedores, el comercio exterior puede significar:</p>
+                        <ul>
+                            <li><strong>Ampliación de mercados</strong>: Superar las limitaciones del mercado local, especialmente cuando está saturado o es pequeño.</li>
+                            <li><strong>Diversificación de riesgos</strong>: Reducir la dependencia de la economía local y sus fluctuaciones.</li>
+                            <li><strong>Aprovechamiento de capacidad instalada</strong>: Utilizar al máximo la capacidad productiva de la empresa.</li>
+                            <li><strong>Economías de escala</strong>: Reducir costos unitarios al aumentar volúmenes de producción y compra.</li>
+                            <li><strong>Mejora competitiva</strong>: Exposición a estándares internacionales que impulsan la innovación y calidad.</li>
+                            <li><strong>Estabilización de operaciones</strong>: Compensar estacionalidades del mercado local con ventas en mercados con ciclos diferentes.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Panorama actual del comercio exterior</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>El entorno del comercio internacional está en constante evolución, caracterizado por:</p>
+                        <ul>
+                            <li>Digitalización acelerada de procesos comerciales</li>
+                            <li>Cambios en cadenas globales de suministro post-pandemia</li>
+                            <li>Mayor relevancia de criterios de sostenibilidad y responsabilidad social</li>
+                            <li>Incremento del comercio electrónico transfronterizo</li>
+                            <li>Nuevos acuerdos comerciales y ajustes en políticas arancelarias</li>
+                            <li>Tensiones comerciales entre potencias económicas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="aspectos-comunes" class="content-section">
+            <h2 class="section-heading">Aspectos Comunes a la Importación y Exportación</h2>
+            
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="marco-legal">Marco Legal</button>
+                    <button class="tab-btn" data-tab="registro">Registro como Operador</button>
+                    <button class="tab-btn" data-tab="incoterms">Incoterms</button>
+                    <button class="tab-btn" data-tab="medios-pago">Medios de Pago</button>
+                </div>
+                
+                <div class="tab-content active" id="marco-legal">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-gavel"></i> Marco Legal y Normativo</h3>
+                        
+                        <h4>Legislación Nacional</h4>
+                        <p>La base legal que regula el comercio exterior en Colombia incluye:</p>
+                        <ul>
+                            <li><strong>Estatuto Aduanero</strong> (Decreto 1165 de 2019 y sus modificaciones): Establece los procedimientos, requisitos y obligaciones para operaciones de comercio exterior.</li>
+                            <li><strong>Régimen de Cambios Internacionales</strong> (Resolución Externa 1 de 2018 del Banco de la República y sus actualizaciones): Regula el manejo de divisas en operaciones internacionales.</li>
+                            <li><strong>Régimen de Inversión Extranjera</strong> (Decreto 2080 de 2000 y sus modificaciones): Establece el marco para inversiones internacionales.</li>
+                            <li><strong>Regulaciones Técnicas y Sanitarias</strong>: Normas expedidas por entidades como INVIMA, ICA y Ministerios para garantizar la calidad y seguridad de productos.</li>
+                        </ul>
+
+                        <h4>Acuerdos Comerciales</h4>
+                        <p>Colombia cuenta con una red de acuerdos comerciales que benefician tanto a importadores como exportadores:</p>
+                        
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Acuerdo</th>
+                                        <th>Países/Regiones</th>
+                                        <th>Principales Beneficios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Alianza del Pacífico</td>
+                                        <td>México, Chile, Perú</td>
+                                        <td>Desgravación del 92% del universo arancelario, acumulación de origen</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TLC con Estados Unidos</td>
+                                        <td>Estados Unidos</td>
+                                        <td>Acceso preferencial al mercado más grande del mundo, protección a inversiones</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Acuerdo con la Unión Europea</td>
+                                        <td>27 países miembros UE</td>
+                                        <td>Acceso a mercado de alto poder adquisitivo, cooperación técnica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunidad Andina</td>
+                                        <td>Bolivia, Ecuador, Perú</td>
+                                        <td>Libre circulación de mercancías, armonización de normas</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mercosur</td>
+                                        <td>Argentina, Brasil, Paraguay, Uruguay</td>
+                                        <td>Complementación industrial, acceso a mercado regional</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="registro">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-id-card"></i> Registro como Operador de Comercio Exterior</h3>
+                        
+                        <h4>Pasos para formalizar su empresa para comercio exterior</h4>
+                        <ol>
+                            <li>
+                                <strong>Registro como persona jurídica o natural</strong>
+                                <ul>
+                                    <li>Constitución de sociedad (si aplica)</li>
+                                    <li>Registro en Cámara de Comercio</li>
+                                    <li>Obtención de NIT</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Actualización del RUT con responsabilidades de comercio exterior</strong>
+                                <ul>
+                                    <li>Para importadores: código 22</li>
+                                    <li>Para exportadores: código 10</li>
+                                    <li>Presentación de formulario 1302 ante la DIAN</li>
+                                    <li>Documentación soporte (certificado Cámara Comercio, estados financieros, etc.)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Registro como usuario aduanero</strong>
+                                <ul>
+                                    <li>Inscripción en el Registro Único Tributario (RUT)</li>
+                                    <li>Solicitud de autorización como usuario aduanero permanente (si aplica)</li>
+                                    <li>Constitución de garantías (cuando sea requerido)</li>
+                                    <li>Registro en sistemas informáticos de la DIAN (MUISCA)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Registro en Ventanilla Única de Comercio Exterior (VUCE)</strong>
+                                <ul>
+                                    <li>Creación de usuario y contraseña</li>
+                                    <li>Vinculación de firma digital</li>
+                                    <li>Habilitación de módulos según necesidades (importaciones, exportaciones, etc.)</li>
+                                    <li>Capacitación en el uso de la plataforma</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="incoterms">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-ship"></i> Incoterms: Términos Internacionales de Comercio</h3>
+                        
+                        <h4>¿Qué son los Incoterms?</h4>
+                        <p>Los Incoterms (International Commercial Terms) son reglas internacionales aceptadas mundialmente que definen las responsabilidades y costos entre compradores y vendedores en contratos de compraventa internacional. Establecidos por la Cámara de Comercio Internacional (CCI), su versión vigente es Incoterms 2020.</p>
+                        
+                        <div class="callout">
+                            <div class="callout-title"><i class="fas fa-lightbulb"></i> Concepto clave para no especialistas</div>
+                            <p>Los Incoterms son como un "contrato estándar" que define claramente quién paga qué, quién es responsable de cada parte del transporte, y en qué momento exacto la propiedad y el riesgo pasan del vendedor al comprador. Utilizarlos correctamente evita malentendidos costosos.</p>
+                        </div>
+                        
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Para cualquier modo de transporte</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Incoterm</th>
+                                                    <th>Nombre completo</th>
+                                                    <th>Descripción para no especialistas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>EXW</td>
+                                                    <td>Ex Works</td>
+                                                    <td>"En fábrica" - La responsabilidad del vendedor termina cuando pone la mercancía a disposición del comprador en sus instalaciones</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FCA</td>
+                                                    <td>Free Carrier</td>
+                                                    <td>"Franco transportista" - El vendedor entrega la mercancía al transportista designado por el comprador en un lugar acordado</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CPT</td>
+                                                    <td>Carriage Paid To</td>
+                                                    <td>"Transporte pagado hasta" - El vendedor contrata y paga el transporte hasta destino, pero el riesgo se transfiere al entregar al primer transportista</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CIP</td>
+                                                    <td>Carriage and Insurance Paid to</td>
+                                                    <td>Como CPT, pero el vendedor también contrata y paga seguro</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>DAP</td>
+                                                    <td>Delivered at Place</td>
+                                                    <td>"Entregado en lugar" - El vendedor pone la mercancía a disposición del comprador en el lugar de destino (sin descargar)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>DPU</td>
+                                                    <td>Delivered at Place Unloaded</td>
+                                                    <td>"Entregado en lugar descargado" - El vendedor entrega y descarga la mercancía en el lugar de destino</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>DDP</td>
+                                                    <td>Delivered Duty Paid</td>
+                                                    <td>"Entregado con derechos pagados" - Máxima obligación para el vendedor, asume todos los costos y riesgos hasta destino, incluidos impuestos</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Exclusivamente para transporte marítimo</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Incoterm</th>
+                                                    <th>Nombre completo</th>
+                                                    <th>Descripción para no especialistas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>FAS</td>
+                                                    <td>Free Alongside Ship</td>
+                                                    <td>"Franco al costado del buque" - El vendedor entrega la mercancía al costado del buque en el puerto de embarque</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FOB</td>
+                                                    <td>Free On Board</td>
+                                                    <td>"Franco a bordo" - El vendedor entrega la mercancía a bordo del buque en puerto de embarque</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CFR</td>
+                                                    <td>Cost and Freight</td>
+                                                    <td>"Costo y flete" - El vendedor paga costos y flete para llevar la mercancía al puerto de destino, pero el riesgo se transfiere cuando la mercancía está a bordo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CIF</td>
+                                                    <td>Cost, Insurance and Freight</td>
+                                                    <td>Como CFR, pero el vendedor también contrata y paga el seguro marítimo</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="medios-pago">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-money-bill-wave"></i> Medios de Pago Internacional</h3>
+                        
+                        <h4>Evaluación de riesgos en pagos internacionales</h4>
+                        <p>El comercio internacional implica riesgos adicionales en comparación con operaciones locales:</p>
+                        <ul>
+                            <li><strong>Riesgo comercial</strong>: Incumplimiento de condiciones pactadas</li>
+                            <li><strong>Riesgo cambiario</strong>: Fluctuaciones en tipos de cambio</li>
+                            <li><strong>Riesgo país</strong>: Situación política, social o económica que afecte la operación</li>
+                            <li><strong>Riesgo documentario</strong>: Errores o inconsistencias en documentación</li>
+                            <li><strong>Riesgo de transporte</strong>: Daños o pérdidas durante el trayecto</li>
+                        </ul>
+                        
+                        <h4>Principales medios de pago</h4>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Carta de Crédito</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>Compromiso de pago emitido por un banco a solicitud del importador, condicionado a la presentación de documentos específicos.</p>
+                                    <p><strong>Ventajas:</strong> Alta seguridad para ambas partes, garantía bancaria, flexibilidad en condiciones.</p>
+                                    <p><strong>Desventajas:</strong> Costos bancarios elevados, proceso documentario complejo.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Cobranza Documentaria</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>El exportador entrega documentos a su banco para que los presente al banco del importador, quien los entrega contra pago o aceptación.</p>
+                                    <p><strong>Ventajas:</strong> Menor costo que carta de crédito, control sobre documentos.</p>
+                                    <p><strong>Desventajas:</strong> No hay garantía de pago, el banco solo actúa como intermediario.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Transferencia Bancaria</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>Pago directo del importador al exportador a través del sistema bancario internacional.</p>
+                                    <p><strong>Ventajas:</strong> Simplicidad, rapidez, bajo costo.</p>
+                                    <p><strong>Desventajas:</strong> Riesgo para el exportador (si es pago posterior) o para el importador (si es pago anticipado).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exportacion" class="content-section">
+            <h2 class="section-heading">Exportación Estratégica</h2>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-box"></i> Logística de Exportación</h3>
+                
+                <h4>Selección del medio de transporte</h4>
+                <div class="two-columns">
+                    <div>
+                        <h5>Marítimo:</h5>
+                        <ul>
+                            <li>Más económico para grandes volúmenes</li>
+                            <li>Ideal para productos no perecederos</li>
+                            <li>Tipos de contenedores: 20', 40', refrigerados, open top</li>
+                        </ul>
+                        
+                        <h5>Aéreo:</h5>
+                        <ul>
+                            <li>Rápido pero más costoso</li>
+                            <li>Perfecto para productos perecederos o de alto valor</li>
+                            <li>Limitaciones de peso y tamaño</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h5>Terrestre:</h5>
+                        <ul>
+                            <li>Para mercados regionales</li>
+                            <li>Flexibilidad en rutas y horarios</li>
+                            <li>Requisitos de documentación simplificados</li>
+                        </ul>
+                        
+                        <h5>Multimodal:</h5>
+                        <ul>
+                            <li>Combinación de varios modos de transporte</li>
+                            <li>Optimización de costos y tiempos</li>
+                            <li>Responsabilidad unificada con un solo operador</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4>Documentación requerida</h4>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Documentos comerciales</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li><strong>Factura comercial</strong>: Documento que describe la mercancía, cantidad, precio y condiciones de venta.</li>
+                                <li><strong>Lista de empaque</strong>: Detalla el contenido de cada bulto, peso, dimensiones y embalaje.</li>
+                                <li><strong>Certificado de origen</strong>: Acredita el país de fabricación para aplicar preferencias arancelarias.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Documentos de transporte</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li><strong>Conocimiento de embarque (B/L)</strong>: Para transporte marítimo, sirve como recibo de mercancía y título de propiedad.</li>
+                                <li><strong>Guía aérea (AWB)</strong>: Para transporte aéreo, no es un título valor pero acredita el contrato de transporte.</li>
+                                <li><strong>Carta de porte</strong>: Para transporte terrestre, documenta el contrato entre transportista y expedidor.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Documentos aduaneros</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li><strong>Declaración de exportación</strong>: Documento oficial que registra la salida legal de mercancías.</li>
+                                <li><strong>Autorizaciones previas</strong>: Permisos especiales para productos regulados (ej. alimentos, medicamentos).</li>
+                                <li><strong>Certificados específicos</strong>: Sanitarios, fitosanitarios, de calidad, según el tipo de producto.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="importacion" class="content-section">
+            <h2 class="section-heading">Importación Eficiente</h2>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-search"></i> Selección de Proveedores Internacionales</h3>
+                
+                <h4>Evaluación de proveedores</h4>
+                <div class="two-columns">
+                    <div>
+                        <h5>Verificación básica:</h5>
+                        <ul>
+                            <li>Existencia legal y antigüedad</li>
+                            <li>Certificaciones de calidad</li>
+                            <li>Referencias comerciales</li>
+                            <li>Capacidad productiva</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h5>Visitas técnicas:</h5>
+                        <ul>
+                            <li>Evaluación de instalaciones</li>
+                            <li>Verificación de procesos</li>
+                            <li>Revisión de controles de calidad</li>
+                            <li>Entrevistas con personal clave</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="callout callout-warning">
+                    <div class="callout-title"><i class="fas fa-exclamation-triangle"></i> Recomendación importante</div>
+                    <p>Antes de realizar pagos significativos, solicite muestras del producto y verifique que cumplan con los estándares de calidad y especificaciones técnicas requeridas. Considere iniciar con pedidos pequeños para evaluar el desempeño del proveedor.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-truck"></i> Logística de Importación</h3>
+                
+                <h4>Proceso aduanero</h4>
+                <ol>
+                    <li>Presentación de declaración de importación</li>
+                    <li>Pago de tributos aduaneros</li>
+                    <li>Inspección física (si aplica)</li>
+                    <li>Levante de mercancía</li>
+                    <li>Transporte a destino final</li>
+                </ol>
+                
+                <div class="callout callout-info">
+                    <div class="callout-title"><i class="fas fa-info-circle"></i> Dato útil</div>
+                    <p>La contratación de un agente de aduanas experimentado puede agilizar significativamente el proceso de importación y reducir el riesgo de errores documentales que generen demoras o sanciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recursos" class="content-section">
+            <h2 class="section-heading">Herramientas Prácticas</h2>
+            
+            <div class="interactive-tool">
+                <h3><i class="fas fa-calculator"></i> Calculadora de Costos de Importación/Exportación</h3>
+                <form id="calculadora-costos">
+                    <div class="two-columns">
+                        <div>
+                            <label for="valor-producto">Valor del producto (USD):</label>
+                            <input type="number" id="valor-producto" min="1" required>
+                            
+                            <label for="incoterm">Incoterm:</label>
+                            <select id="incoterm" required>
+                                <option value="">Seleccione un Incoterm</option>
+                                <option value="EXW">EXW - Ex Works</option>
+                                <option value="FOB">FOB - Free On Board</option>
+                                <option value="CIF">CIF - Cost, Insurance & Freight</option>
+                                <option value="DDP">DDP - Delivered Duty Paid</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="arancel">Arancel (%):</label>
+                            <input type="number" id="arancel" min="0" max="100" step="0.1" required>
+                            
+                            <label for="tipo-operacion">Tipo de operación:</label>
+                            <select id="tipo-operacion" required>
+                                <option value="">Seleccione tipo</option>
+                                <option value="importacion">Importación</option>
+                                <option value="exportacion">Exportación</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit">Calcular Costos</button>
+                </form>
+                <div id="resultado-calculadora"></div>
+                <div id="costChart" class="cost-chart"></div>
+            </div>
+
+            <div class="interactive-tool">
+                <h3><i class="fas fa-tasks"></i> Checklist para Exportación</h3>
+                <div id="checklist-exportacion">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">Registro como exportador en el RUT (código 10)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">Estudio de mercado y factibilidad del producto</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">Clasificación arancelaria del producto</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4">Verificación de requisitos y vistos buenos</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5">
+                        <label for="check5">Procedimientos aduaneros para despacho</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check6">
+                        <label for="check6">Definición de términos de negociación (Incoterm)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check7">
+                        <label for="check7">Contratación de transporte internacional</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check8">
+                        <label for="check8">Compra de seguro de la mercancía</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check9">
+                        <label for="check9">Preparación y revisión de documentos</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check10">
+                        <label for="check10">Seguimiento a la entrega de la mercancía</label>
+                    </div>
+                </div>
+                <button id="descargarChecklist">Descargar Checklist</button>
+                <button id="resetChecklist">Reiniciar Checklist</button>
+            </div>
+            <div class="interactive-tool">
+                <h3><i class="fas fa-question-circle"></i> Quiz de Conocimientos</h3>
+                <div id="quizContainer"></div>
+                <button id="submitQuiz">Enviar Respuestas</button>
+                <div id="quizResults"></div>
+            </div>
+        </section>
+
+        <section id="glosario" class="content-section">
+            <h2 class="section-heading">Diccionario Aduanero</h2>
+            <div class="search-container">
+                <input type="text" id="glosarioSearch" placeholder="Buscar término...">
+            </div>
+            <div class="glosario-grid">
+                <div class="term-card">
+                    <h4>Certificado de Origen</h4>
+                    <p>Documento que autentica el país de fabricación de una mercancía. Requerido para acogerse a beneficios arancelarios.</p>
+                    <a href="https://www.dian.gov.co" target="_blank" rel="noopener">Ver formato oficial <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+                <div class="term-card">
+                    <h4>Incoterms</h4>
+                    <p>Términos internacionales que definen responsabilidades y costos entre comprador y vendedor en comercio internacional.</p>
+                    <a href="https://iccwbo.org" target="_blank" rel="noopener">Más información <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+                <div class="term-card">
+                    <h4>Drawback</h4>
+                    <p>Mecanismo que permite recuperar los aranceles pagados por insumos importados usados en productos exportados.</p>
+                    <a href="https://www.dian.gov.co" target="_blank" rel="noopener">Ver requisitos <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+                <div class="term-card">
+                    <h4>Partida Arancelaria</h4>
+                    <p>Código numérico que clasifica las mercancías para determinar aranceles, restricciones y requisitos de importación/exportación.</p>
+                    <a href="https://muisca.dian.gov.co" target="_blank" rel="noopener">Consultar arancel <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+                <div class="term-card">
+                    <h4>Zona Franca</h4>
+                    <p>Área geográfica delimitada donde se desarrollan actividades industriales y comerciales bajo un régimen tributario y aduanero especial.</p>
+                    <a href="https://www.mincit.gov.co" target="_blank" rel="noopener">Zonas francas en Colombia <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+                <div class="term-card">
+                    <h4>Régimen Aduanero</h4>
+                    <p>Tratamiento aplicable a las mercancías sometidas al control aduanero, según la declaración presentada.</p>
+                    <a href="https://www.dian.gov.co" target="_blank" rel="noopener">Tipos de regímenes <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3 class="footer-title"><i class="fas fa-globe-americas"></i> Comercio Exterior</h3>
+                    <p>Guía completa para empresarios que buscan expandir sus horizontes comerciales a nivel internacional.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title"><i class="footer-title"><i class="fas fa-link"></i> Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#intro"><i class="fas fa-angle-right"></i> Introducción</a></li>
+                        <li><a href="#aspectos-comunes"><i class="fas fa-angle-right"></i> Aspectos Comunes</a></li>
+                        <li><a href="#exportacion"><i class="fas fa-angle-right"></i> Exportación</a></li>
+                        <li><a href="#importacion"><i class="fas fa-angle-right"></i> Importación</a></li>
+                        <li><a href="#recursos"><i class="fas fa-angle-right"></i> Herramientas</a></li>
+                        <li><a href="#glosario"><i class="fas fa-angle-right"></i> Glosario</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title"><i class="fas fa-external-link-alt"></i> Recursos Externos</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.dian.gov.co" target="_blank" rel="noopener"><i class="fas fa-angle-right"></i> DIAN</a></li>
+                        <li><a href="https://www.mincit.gov.co" target="_blank" rel="noopener"><i class="fas fa-angle-right"></i> MinComercio</a></li>
+                        <li><a href="https://www.procolombia.co" target="_blank" rel="noopener"><i class="fas fa-angle-right"></i> ProColombia</a></li>
+                        <li><a href="https://www.bancoldex.com" target="_blank" rel="noopener"><i class="fas fa-angle-right"></i> Bancóldex</a></li>
+                        <li><a href="https://www.iccwbo.org" target="_blank" rel="noopener"><i class="fas fa-angle-right"></i> Cámara de Comercio Internacional</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Guía de Comercio Exterior. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación y UI
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (mainNav.classList.contains('active') && !e.target.closest('.navbar')) {
+                    mainNav.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            
+            // Navegación activa
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            function setActiveLink() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Header con efecto scroll
+            const header = document.getElementById('header');
+            
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                setActiveLink();
+                updateProgressBar();
+                
+                // Botón volver arriba
+                const backToTop = document.getElementById('backToTop');
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            window.addEventListener('scroll', handleScroll);
+            
+            // Barra de progreso
+            function updateProgressBar() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.body.clientHeight;
+                const scrollTop = window.scrollY;
+                const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+                
+                document.getElementById('progressBar').style.width = scrollPercent + '%';
+            }
+            
+            // Botón volver arriba
+            document.getElementById('backToTop').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+
+            // Navegación suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 100; // Adjust this value based on your header height
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Tabs
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Desactivar todos los tabs
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Activar el tab seleccionado
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Acordeón
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const currentlyActiveHeader = document.querySelector('.accordion-header.active');
+                    if (currentlyActiveHeader && currentlyActiveHeader !== this) {
+                        currentlyActiveHeader.classList.remove('active');
+                        currentlyActiveHeader.nextElementSibling.classList.remove('active');
+                        currentlyActiveHeader.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    }
+
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('active');
+                    
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fa-chevron-up');
+                    icon.classList.toggle('fa-chevron-down');
+                });
+            });
+        });
+        
+        // Calculadora de costos
+        document.getElementById('calculadora-costos').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const valorProducto = parseFloat(document.getElementById('valor-producto').value);
+            const arancel = parseFloat(document.getElementById('arancel').value);
+            const incoterm = document.getElementById('incoterm').value;
+            const tipoOperacion = document.getElementById('tipo-operacion').value;
+            
+            let costosAdicionales = 0;
+            let descripcionCostos = '';
+            
+            switch(incoterm) {
+                case 'EXW':
+                    costosAdicionales = valorProducto * 0.15; // 15% estimado
+                    descripcionCostos = 'Incluye transporte interno en origen, carga, flete internacional, seguro, descarga y transporte interno en destino';
+                    break;
+                case 'FOB':
+                    costosAdicionales = valorProducto * 0.10; // 10% estimado
+                    descripcionCostos = 'Incluye flete internacional, seguro, descarga y transporte interno en destino';
+                    break;
+                case 'CIF':
+                    costosAdicionales = valorProducto * 0.05; // 5% estimado
+                    descripcionCostos = 'Incluye descarga y transporte interno en destino';
+                    break;
+                case 'DDP':
+                    costosAdicionales = 0; // Ya incluye todo
+                    descripcionCostos = 'Todos los costos están incluidos en el precio';
+                    break;
+            }
+            
+            const totalArancel = valorProducto * (arancel / 100);
+            const iva = (valorProducto + totalArancel) * 0.19; // 19% IVA (ejemplo)
+            const total = valorProducto + costosAdicionales + totalArancel + (tipoOperacion === 'importacion' ? iva : 0);
+            
+            const resultadoElement = document.getElementById('resultado-calculadora');
+            resultadoElement.innerHTML = `
+                <h4>Resultado del cálculo (${tipoOperacion === 'importacion' ? 'Importación' : 'Exportación'})</h4>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <td><strong>Valor producto:</strong></td>
+                            <td>USD ${valorProducto.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Costos adicionales (${incoterm}):</strong></td>
+                            <td>USD ${costosAdicionales.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arancel (${arancel}%):</strong></td>
+                            <td>USD ${totalArancel.toFixed(2)}</td>
+                        </tr>
+                        ${tipoOperacion === 'importacion' ? `
+                        <tr>
+                            <td><strong>IVA (19%):</strong></td>
+                            <td>USD ${iva.toFixed(2)}</td>
+                        </tr>` : ''}
+                        <tr>
+                            <td><strong>Costo total estimado:</strong></td>
+                            <td>USD ${total.toFixed(2)}</td>
+                        </tr>
+                    </table>
+                </div>
+                <p><strong>Nota:</strong> ${descripcionCostos}</p>
+                <p class="callout-info">Esta es una estimación general. Los costos reales pueden variar según factores específicos de cada operación.</p>
+            `;
+            
+            resultadoElement.classList.add('show');
+        });
+        
+        // Checklist para exportación
+        const checklistItems = document.querySelectorAll('#checklist-exportacion .checklist-item input[type="checkbox"]');
+        
+        checklistItems.forEach(item => {
+            item.addEventListener('change', function() {
+                if (this.checked) {
+                    this.parentElement.classList.add('completed');
+                } else {
+                    this.parentElement.classList.remove('completed');
+                }
+                
+                // Guardar estado en localStorage
+                saveChecklistState();
+            });
+        });
+        
+        // Guardar estado del checklist
+        function saveChecklistState() {
+            const checklistState = {};
+            
+            checklistItems.forEach(item => {
+                checklistState[item.id] = item.checked;
+            });
+            
+            localStorage.setItem('exportChecklistState', JSON.stringify(checklistState));
+        }
+        
+        // Cargar estado del checklist
+        function loadChecklistState() {
+            const savedState = localStorage.getItem('exportChecklistState');
+            
+            if (savedState) {
+                const checklistState = JSON.parse(savedState);
+                
+                Object.keys(checklistState).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = checklistState[id];
+                        if (checklistState[id]) {
+                            checkbox.parentElement.classList.add('completed');
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Cargar estado al iniciar
+        loadChecklistState();
+        
+        // Reiniciar checklist
+        document.getElementById('resetChecklist').addEventListener('click', function() {
+            checklistItems.forEach(item => {
+                item.checked = false;
+                item.parentElement.classList.remove('completed');
+            });
+            
+            localStorage.removeItem('exportChecklistState');
+        });
+        
+        // Descargar checklist
+        document.getElementById('descargarChecklist').addEventListener('click', function() {
+            let checklistContent = "CHECKLIST DE EXPORTACIÓN\n\n";
+            
+            checklistItems.forEach(item => {
+                const status = item.checked ? "[X]" : "[ ]";
+                const label = item.nextElementSibling.textContent;
+                checklistContent += `${status} ${label}\n`;
+            });
+            
+            const blob = new Blob([checklistContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'checklist-exportacion.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // Interactive tooltips
+    const tooltips = document.querySelectorAll('.tooltip');
+    tooltips.forEach(tooltip => {
+        const tooltipText = tooltip.getAttribute('data-tooltip');
+        const span = document.createElement('span');
+        span.className = 'tooltip-text';
+        span.textContent = tooltipText;
+        tooltip.appendChild(span);
+    });
+
+    // Animated counters
+    function animateCounter(el) {
+        const target = parseInt(el.getAttribute('data-target'));
+        const duration = 2000; // ms
+        const step = target / (duration / 16); // 60 fps
+        let current = 0;
+        const timer = setInterval(() => {
+            current += step;
+            el.textContent = Math.round(current);
+            if (current >= target) {
+                el.textContent = target;
+                clearInterval(timer);
+            }
+        }, 16);
+    }
+
+    // Scroll-triggered animations
+    function fadeInElement(element) {
+        element.style.opacity = 0;
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        new Waypoint({
+            element: element,
+            handler: function() {
+                element.style.opacity = 1;
+                element.style.transform = 'translateY(0)';
+                this.destroy();
+            },
+            offset: '80%'
+        });
+    }
+
+    document.querySelectorAll('.fade-in').forEach(fadeInElement);
+
+    // Animated chart
+    function createChart() {
+        const ctx = document.getElementById('exportChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Exportaciones (Millones USD)',
+                    data: [31056, 41223, 58030, 63050, 67500],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Initialize interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.counter').forEach(animateCounter);
+        createChart();
+
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    });
+    </script>
+</body>
+</html>
